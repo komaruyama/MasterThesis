@@ -55,6 +55,13 @@ C \xrightarrow{R}^*_{w[i+2...i+k]}C', k\le \delta, C' \in \mathcal{C}_{\le \alph
 この章では、oritatami system に実装した無限バイナリカウンタについて説明する。
 ここで言う無限バイナリカウンタとは、あるビット幅でカウントアップしていたカウンタが桁上がりのためにオーバーフローした際に、そのビット幅を拡張することでカウントアップを無限に続けていくようなバイナリカウントを指す。
 
+
+%%%%%%
+%% モジュールごとのブリック
+%%%%%%
+%
+% F
+%
 \begin{figure}[tb]
   \centering
    \includegraphics[width=0.6\linewidth]{fig/svg/Fnt_1.pdf}\\
@@ -64,10 +71,78 @@ C \xrightarrow{R}^*_{w[i+2...i+k]}C', k\le \delta, C' \in \mathcal{C}_{\le \alph
    \includegraphics[width=0.6\linewidth]{fig/svg/F0_1.pdf}\\
  \vspace*{10mm}
    \includegraphics[width=0.6\linewidth]{fig/svg/F1_1.pdf}
- \caption{フォーマットモジュールのブリックは全部で4種類存在する。上二つの\texttt{Fnt}と\texttt{Fnb}はジグでのみ現れ、下二つの\texttt{F0}と\texttt{F1}はザグにのみ現れる。}
+ \caption{フォーマットモジュール(F)のブリックは全部で4種類存在する。上二つの\texttt{Fnt}と\texttt{Fnb}はジグでのみ現れ、下二つの\texttt{F0}と\texttt{F1}はザグにのみ現れる。}
  \label{fig:formatters}
 \end{figure}
 
+%
+% L
+%
+\begin{figure}[tb]
+  \centering
+   \includegraphics[width=0.6\linewidth]{fig/svg/Lt_3.pdf}\\
+   \vspace*{3mm}
+   \includegraphics[width=0.6\linewidth]{fig/svg/Lbc_3.pdf}\\
+   \vspace*{3mm}
+   \includegraphics[width=0.4\linewidth]{fig/svg/Ltrc_3.pdf}\\
+   \vspace*{3mm}
+   \includegraphics[width=0.5\linewidth]{fig/svg/Ltre_3.pdf}\\
+   \includegraphics[width=0.6\linewidth]{fig/svg/Lbe_3.pdf}
+ 
+ \caption{左ターンモジュール(L)のブリックは５種類あり、図の上から順に\texttt{Lt}、\texttt{Lbn}、\texttt{Lcrn}、\texttt{Lcre}、\texttt{Lbe}となっている。
+ジグの中でLは、左端に到達するまでの間は\texttt{Lt}か\texttt{Lbn}に折りたたまれ、そのどちらになるかはLの折りたたみの開始地点に応じて決定される。
+Lが左端に到達した時オーバーフローしていなければ\texttt{Lcrn}、もしオーバーフローしていた時は\texttt{Lbe}に折りたたまれる。
+一方でザグの中ではLは\texttt{Lbn}にのみ折りたたまれる。}
+ \label{fig:leftturns}
+\end{figure}
+
+%
+% H
+%
+\begin{figure}[tb]
+  \centering
+   \includegraphics[width=0.45\linewidth]{fig/svg/H00_1.pdf}\\
+   \vspace*{3mm}
+   \includegraphics[width=0.45\linewidth]{fig/svg/H01_1.pdf}\\
+   \vspace*{3mm}
+   \includegraphics[width=0.45\linewidth]{fig/svg/H10_1.pdf}\\
+   \vspace*{3mm}
+   \includegraphics[width=0.45\linewidth]{fig/svg/H11_1.pdf}\\
+   \vspace*{3mm}
+   \includegraphics[width=0.45\linewidth]{fig/svg/He1_1.pdf}\\
+   \vspace*{3mm}
+   \includegraphics[width=0.45\linewidth]{fig/svg/Hn_1.pdf}
+
+ \caption{半加算器モジュール(H)のブリックは６種類存在し、上から順に\texttt{H00}、\texttt{H01}、\texttt{H11}、\texttt{H10}、\texttt{He1}、\texttt{Hn}となっている。
+ ザグの時、Hは\texttt{Hn}にのみ折りたたまれ、ジグの時はそれ以外のブリックに折りたたまれる。}
+ \label{fig:halfadders}
+\end{figure}
+
+%
+% R
+%
+\begin{figure}[tb]
+  \centering
+   \includegraphics[width=0.8\linewidth]{fig/svg/Rt_1.pdf}\\
+   \vspace*{5mm}
+   \includegraphics[width=0.8\linewidth]{fig/svg/Rb_2.pdf}\\
+   \vspace*{3mm}
+   \includegraphics[width=0.8\linewidth]{fig/svg/Rb_1.pdf}\\
+   \vspace*{5mm}
+   \includegraphics[width=0.5\linewidth]{fig/svg/Rtr_1.pdf}
+
+ \caption{右ターンモジュール(R)は３種類のブリックに折りたたまれる。図は上から順に\texttt{Rt}、\texttt{Rb}(上に構造あり)、\texttt{Rb}(折りたたまれた構造が上に存在しない)、\texttt{Rcr}である。
+ ジグの時、Rは\texttt{Rt}か\texttt{Rb}に折りたたまれ、どちらになるかはRの開始地点に依存する。またここでは\texttt{Rb}に関して、２つの内どちらの構造も取り得る。
+ザグの時は、右端に到達するまでの間いつもRは\texttt{Rb}(上に構造あり)のブリックに折りたたまれる。
+右端にたどり着いたら\texttt{Rcr}へと折りたたまれる。}
+ \label{fig:rightturns}
+\end{figure}
+
+
+
+%%%%%%%%%%
+%% brick automaton
+%%%%%%%%%%
 
 \begin{figure}[p]
 \centering
@@ -177,7 +252,9 @@ oritatami systemは最初に\textit{seed}部分が折りたたまれた状態か
 \textit{seed}に記録された初期カウントが$k$ビットである無限カウンタでは、最初のジグの\textit{transcript}は$(FLHR)^k F$で表される。
 ジグの中では、モジュールFとHのブリックはどちらも高さ3、幅10に折りたたまれ、またモジュールLとRのブリックはどちらも高さ3、幅12に折りたたまれる。
 それゆえジグは高さ3の線形構造となる。
-
+最初のジグの中で、$i$番目のモジュールHは、式~\ref{eq:zagencoding}に従ってフォーマットされた$b_{i-1}$の右下から転写が開始し、そのフォーマット配列に応じたブリックに折りたたまれる。
+つまり、そのHは$b_{i-1}$の値を読んでいることになる。
+最初のジグが全て折りたたまれた後、その直後の左ターンモジュールLはターンシグナルのすぐ下に転写される。これによって高さ3のジグがその上側で終了した場合、このターンシグナルとLの一部が特別な結合をし、Lが左ターン用のブリックに折りたたまれる(図~\ref{fig:counter1stzag})。
 
 \section{$| \Sigma | = 1$における非チューリング完全性について}
 

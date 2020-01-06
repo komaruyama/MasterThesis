@@ -1,0 +1,15 @@
+\contentsline {section}{\numberline {1}はじめに}{3}{section.1}
+\contentsline {section}{\numberline {2}oritatami system}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}定義}{5}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}動作例}{7}{subsection.2.2}
+\contentsline {section}{\numberline {3}無限バイナリカウンタの実装}{12}{section.3}
+\contentsline {subsection}{\numberline {3.1}挙動の概要}{12}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}シードへの初期カウント数の記述方法}{14}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}ブリック単位での動作説明}{16}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}カウントアップの方法}{20}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}オーバーフローの処理}{21}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}フォーマット}{22}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.7}0ビットからのカウントアップ}{23}{subsection.3.7}
+\contentsline {subsection}{\numberline {3.8}実装したoritatami system}{24}{subsection.3.8}
+\contentsline {section}{\numberline {4}まとめ}{25}{section.4}
+\contentsline {section}{\numberline {5}謝辞}{25}{section.5}

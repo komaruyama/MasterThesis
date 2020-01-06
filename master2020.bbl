@@ -1,0 +1,28 @@
+\begin{thebibliography}{1}
+
+\bibitem{bio}
+Bruce Alberts, Dennis Bray, Karen Hopkin, Alexander Johnson, Julian Lewis,
+  Martin Raff, Keith Roberts, and Peter Walter.
+\newblock {\em Essential cell biology}.
+\newblock Garland Science, 2013.
+
+\bibitem{GeMeScSe2018}
+Cody Geary, Pierre{-}\'{E}tienne Meunier, Nicolas Schabanel, and Shinnosuke
+  Seki.
+\newblock Proving the {T}uring universality of oritatami cotranscriptional
+  folding.
+\newblock In {\em Proc. ISAAC 2018}, pages 23:1 -- 23:13, 2018.
+
+\bibitem{GeMeScSe2019}
+Cody Geary, Pierre{-}\'{E}tienne Meunier, Nicolas Schabanel, and Shinnosuke
+  Seki.
+\newblock Oritatami: A computational model for molecular co-transcriptional
+  folding.
+\newblock {\em International Journal of Molecular Sciences}, 20(9):2259, 2019.
+
+\bibitem{encoding}
+A~Xayaphoummine, V~Viasnoff, S~Harlepp, and H~Isambert.
+\newblock Encoding folding paths of rna switches.
+\newblock {\em Nucleic acids research}, 35(2):614--622, 2007.
+
+\end{thebibliography}
